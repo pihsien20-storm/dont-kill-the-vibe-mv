@@ -1,0 +1,12 @@
+node_modules/
+.models/
+.venv/
+out/
+stills*/
+data/*.wav
+data/*.mp3
+data/energy.json
+data/lyrics_raw.json
+*.part.mp4
+data/preview.html
+__pycache__/

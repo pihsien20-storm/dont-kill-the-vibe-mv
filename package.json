@@ -1,0 +1,21 @@
+{
+  "name": "dont-kill-the-vibe-mv",
+  "version": "1.0.0",
+  "description": "A 3D neon music video rendered entirely from code (Node + Skia canvas + FFmpeg), driven by the song's beats and spectrum.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Xen Ong",
+  "scripts": {
+    "stills": "node render.mjs --stills 13.5,23.2,48,99.9,127.3,152,203.4 --outdir stills",
+    "render": "bash tools/render_all.sh 1920 1080",
+    "render:vertical": "bash tools/render_all.sh 1080 1920"
+  },
+  "dependencies": {
+    "@fontsource/anton": "^5.3.0",
+    "@fontsource/big-shoulders-display": "^5.3.0",
+    "@fontsource/chakra-petch": "^5.3.0",
+    "@fontsource/syncopate": "^5.3.0",
+    "@napi-rs/canvas": "^1.1.1",
+    "opentype.js": "^2.0.0"
+  }
+}
