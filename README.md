@@ -52,7 +52,7 @@ pip install -r requirements.txt
 把标准歌词写进 `data/lyrics.txt`。段落标题用 `[Chorus]` 这种格式；一句唱了几次，就写几次。
 
 ```bash
-python tools/transcribe.py      # 识别人声，得到每个词的时间（第一次会下载约 500MB 模型）
+python tools/transcribe.py      # 识别人声，得到每个词的时间（默认用 large-v3-turbo 模型，免费开源，第一次会下载约 1.6GB，运行时占用约 2–3GB 内存）
 python tools/align_lyrics.py    # 以你的歌词为准对齐，输出 data/lyrics.json
 python tools/preview.py         # 生成 data/preview.html，双击打开边听边对
 ```

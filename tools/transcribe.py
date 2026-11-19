@@ -1,6 +1,6 @@
 ﻿"""Step 2a — word-level timestamps of the sung vocal with faster-whisper.
 
-Usage:  python tools/transcribe.py [data/song.wav] [--model small] [--lang en]
+Usage:  python tools/transcribe.py [data/song.wav] [--model large-v3-turbo] [--lang en|zh]
         python tools/transcribe.py --from 150 --to 165   # re-check one stretch
 Output: data/lyrics_raw.json  {duration, segments[], words[{w,start,end,prob}]}
         (with --from/--to: printed only, nothing is overwritten)
@@ -8,8 +8,10 @@ Output: data/lyrics_raw.json  {duration, segments[], words[{w,start,end,prob}]}
 Whisper often skips shouted hooks over loud music, or puts a repeated line in
 the wrong place. Re-transcribing a 10-20 s window around the gap usually finds it.
 
-Runs on CPU (int8). The model (~500 MB for "small") is downloaded on first run
-into ./.models (set HF_HOME elsewhere if you want it on another drive).
+Runs on CPU (int8). The default model is large-v3-turbo: free and open source,
+~1.6 GB downloaded once on first run into ./.models (keep the repo on D: so it
+stays off C:), and about 2-3 GB of RAM while running. It is much more accurate
+than "small" on sung and Chinese vocals. On a very tight machine, use --model small.
 """
 import argparse
 import json
@@ -23,7 +25,7 @@ from faster_whisper import WhisperModel  # noqa: E402
 
 ap = argparse.ArgumentParser()
 ap.add_argument("audio", nargs="?", default=str(ROOT / "data" / "song.wav"))
-ap.add_argument("--model", default="small")
+ap.add_argument("--model", default="large-v3-turbo")
 ap.add_argument("--lang", default="en")
 ap.add_argument("--from", dest="t0", type=float)
 ap.add_argument("--to", dest="t1", type=float)

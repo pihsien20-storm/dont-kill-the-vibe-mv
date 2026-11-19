@@ -4,13 +4,13 @@
 # usage: tools/render_all.sh [W] [H] [OUTDIR] [JOBS] [CHUNK_SECONDS]
 #   tools/render_all.sh                      # 1920x1080 -> out/1920x1080/final.mp4
 #   tools/render_all.sh 1080 1920            # vertical 9:16
-#   tools/render_all.sh 1920 1080 out/hd 4   # 4 parallel jobs
+#   tools/render_all.sh 1920 1080 out/hd 4   # 4 parallel jobs (default: one per CPU core)
 #
 # Chunks that already exist are skipped, so after changing one scene you can
 # delete only the affected out/<size>/pNN.mp4 files and run this again.
 set -euo pipefail
 cd "$(dirname "$0")/.."
-W=${1:-1920}; H=${2:-1080}; DIR=${3:-out/${W}x${H}}; JOBS=${4:-2}; CHUNK=${5:-28}
+W=${1:-1920}; H=${2:-1080}; DIR=${3:-out/${W}x${H}}; JOBS=${4:-$(nproc 2>/dev/null || echo 2)}; CHUNK=${5:-28}
 mkdir -p "$DIR"
 TOTAL=$(node --input-type=module -e "import { NF, FPS } from './scenes.mjs'; console.log(NF / FPS)")
 N=$(python3 -c "import math; print(math.ceil($TOTAL / $CHUNK))")
